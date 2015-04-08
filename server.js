@@ -1,4 +1,4 @@
-//Importación del módulos SUPER DUPER CAMBIO!
+//Importación del módulos
 var express = require('express');
 var http = require('http');
 var mssql = require('mssql');
