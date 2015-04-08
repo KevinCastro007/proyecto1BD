@@ -1,0 +1,29 @@
+<div class="well">
+	<table class="table"> <!-- "table" y bootstrap hace la magia -->	
+		<thead>
+			<tr>
+				<th>Usuario</th>
+				<th>Contraseña</th>
+				<th>Nombre</th>
+				<th>Acción</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input class="form-control" ng-model="profesor.usuario"></td>
+				<td><input type="password" class="form-control" ng-model="profesor.clave"></td>
+				<td><input class="form-control" ng-model="profesor.nombre"></td>	
+				<td><button class="btn btn-primary" ng-click="insertar()">Insertar</button></td>		
+				<td><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></td>			
+			</tr>	
+			<tr ng-repeat="profesor in profesores">  <!-- Recorrer el array -->
+				<td>{{profesor.usuario}}</td>
+				<td>*******************</td>
+				<td>{{profesor.nombre}}</td>
+				<td><button class="btn btn-danger" ng-click="eliminar(profesor.usuario)">Eliminar</button></td>
+				<td><button class="btn btn-warning" ng-click="editar(profesor.usuario)">Editar</button></td>
+			</tr>
+		</tbody>				
+	</table> 
+</div>
