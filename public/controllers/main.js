@@ -41,12 +41,27 @@ myApp.controller('mainController', ['$scope', '$http', function ($scope, $http) 
 myApp.controller('periodoController', ['$scope', '$http', function ($scope, $http) {
 	var refresh = function () {
 		$http.get('/periodos').success(function (response) {	//"Importar" desde el server
-			$scope.periodos = response;						//"Exportar" desde el controlador
+			$scope.periodos = response;							//"Exportar" desde el controlador
 			$scope.periodo = "";
 		});	
 		
 	};
 	refresh();
+
+	$scope.insertar = function () {	
+		$http.post('/insertarPeriodo', $scope.periodo).success(function (response) {
+			refresh();
+			alert("Ejecución efectiva!");
+			document.location.reload();	
+			// if (response.resultado) {
+			// 	alert("Periodo insertado correctamente!");
+			// 	document.location.reload();	
+			// }	
+			// else {
+			// 	alert("No se ha podido insertar el Periodo!");
+			// }			
+		});
+	};	
 }]);
 
 myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http) {

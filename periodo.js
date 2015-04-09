@@ -37,4 +37,22 @@ function periodos() {
 	return periodos;
 }
 
+function insertarPeriodo(fechaInicio, fechaFin) {
+	var connection = new mssql.Connection(configuration, function (err) {
+	    var request = new mssql.Request(connection);
+	    //Parámetros
+	    request.input('FechaInicio', mssql.VarChar(32), fechaInicio);
+	    request.input('FechaFin', mssql.VarChar(32), fechaFin);
+	    //Ejecución del Store Procedure
+	    request.execute('dbo.RNSP_InsertarPeriodo', function (err, recordsets, returnValue) {
+	    	console.log("Ejecución efectiva del SP (INSERTAR PERIODO)");
+			var respuesta = {
+				resultado: returnValue
+			};
+	    	return respuesta;
+	    });  	    
+	});
+}
+
 module.exports.periodos = periodos;
+module.exports.insertarPeriodo = insertarPeriodo;

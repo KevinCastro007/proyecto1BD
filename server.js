@@ -153,3 +153,7 @@ var periodo = require('./periodo.js')
 app.get('/periodos', function (request, response) {
 	response.json(periodo.periodos());
 });
+//Insertar Periodo
+app.post('/insertarPeriodo', function (request, response) {
+	response.json(periodo.insertarPeriodo(request.body.fechaInicio, request.body.fechaFin));
+});
