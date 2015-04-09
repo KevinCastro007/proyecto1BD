@@ -22,8 +22,8 @@ function estructuraPeriodo() {
 
 function periodos() {
 	var connection = new mssql.Connection(configuration, function (err) {
-	    var request = new mssql.Request(connection);   
-	    // Stored Procedure     
+	    var request = new mssql.Request(connection); 
+	    //Ejecución del Store Procedure
 	    request.execute('dbo.RNSP_Periodos', function (err, recordsets, returnValue) { 
 	        periodos = new Array(recordsets[0].length);
 	        for (var i = 0; i < recordsets[0].length; i++) {
