@@ -26,17 +26,13 @@ var configuration =
 var estudiante = require('./estudiante.js');
 //Estudiantes
 app.get('/estudiantes', function (request, response) {
+	//console.log(estudiante.estudiantes());
 	response.json(estudiante.estudiantes());
 });
 //Insertar Estudiante
 app.post('/insertarEstudiante', function (request, response) {
-	var respuesta = {
-		resultado: estudiante.insertarEstudiante(request.body.carne, 
-			request.body.nombre, 
-			request.body.email)
-	};
 	console.log("Ejecución efectiva del SP (INSERTAR ESTUDIANTE)");
-	response.json(respuesta);
+	response.json(estudiante.insertarEstudiante(request.body.carne, request.body.nombre, request.body.email));
 });
 //Eliminar Estudiante
 app.delete('/eliminarEstudiante/:carne', function (request, response) {

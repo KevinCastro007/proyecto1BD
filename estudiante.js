@@ -38,7 +38,7 @@ function estudiantes() {
 	return estudiantes;	
 }
 
-function insertarEstudiante(carne, nombre, email) {
+function insertarEstudiante(carne, nombre, email) {	
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
@@ -47,7 +47,10 @@ function insertarEstudiante(carne, nombre, email) {
 	    request.input('Email', mssql.VarChar(32), email);
 	    //Ejecución del Store Procedure
 	    request.execute('dbo.RNSP_InsertarEstudiante', function (err, recordsets, returnValue) {
-	    	return returnValue;
+	    	var respuesta = {
+				resultado: returnValue
+			};
+	    	return respuesta;
 	    });  	    
 	});
 }
