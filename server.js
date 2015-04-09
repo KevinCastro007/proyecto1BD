@@ -22,6 +22,10 @@ var configuration =
 	database: 'RegistroNotas'
 }
 
+function hola () {
+	console.log("Hola");
+}
+
 //  ----------------------- Estudiante --------------------------------------
 var estudiante = require('./estudiante.js');
 //Estudiantes
