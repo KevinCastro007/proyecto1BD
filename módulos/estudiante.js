@@ -8,19 +8,18 @@ var configuration =
 	server: 'localhost',
 	database: 'RegistroNotas'
 }
-
 var estudiante;
 var estudiantes;
 function estructuraEstudiante() {
 	var estudiante = 
-	{		
+	{	
+		ID: 0,	
 		carne: "",
 		nombre: "",
 		email: ""
 	};
 	return estudiante;
 }
-
 function estudiantes() {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
@@ -28,6 +27,7 @@ function estudiantes() {
 	        estudiantes = new Array(recordsets[0].length);
 	        for (var i = 0; i < recordsets[0].length; i++) {
 	        	estudiante = new estructuraEstudiante();
+	        	estudiante.ID = recordsets[0][i].ID;
 	        	estudiante.carne = recordsets[0][i].Carne;
 	        	estudiante.nombre = recordsets[0][i].Nombre;
 	        	estudiante.email = recordsets[0][i].Email;
@@ -37,7 +37,6 @@ function estudiantes() {
 	});
 	return estudiantes;	
 }
-
 function insertar(carne, nombre, email) {	
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
@@ -55,7 +54,6 @@ function insertar(carne, nombre, email) {
 	    });  	    
 	});
 }
-
 function eliminar(carne) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
@@ -71,7 +69,6 @@ function eliminar(carne) {
 	    });  	    
 	});	
 }
-
 function actualizar(ID, carne, nombre, email) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
@@ -90,7 +87,6 @@ function actualizar(ID, carne, nombre, email) {
 	    });  	    
 	});
 }
-
 module.exports.estudiantes = estudiantes;
 module.exports.insertar = insertar;
 module.exports.eliminar = eliminar;

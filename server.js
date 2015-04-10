@@ -141,3 +141,27 @@ app.post('/insertarPeriodo', function (request, response) {
 app.post('/invertirEstadoPeriodo/:fechaInicio', function (request, response) {
 	response.json(periodo.invertirEstado(request.params.fechaInicio));	
 });
+//Editar Periodo
+app.get('/editarPeriodo/:fechaInicio', function (request, response) {
+	var fechaInicio = request.params.fechaInicio;
+	var connection = new mssql.Connection(configuration, function (err) {
+	    var request = new mssql.Request(connection);
+	    //Parámetros
+	    request.input('FechaInicio', mssql.VarChar(50), fechaInicio);
+	    //Ejecución del Store Procedure
+	    request.execute('dbo.RNSP_Periodo', function (err, recordsets, returnValue) { 
+	    	var resultado = {
+	    		ID: recordsets[0][0].ID,
+	    		fechaInicio: recordsets[0][0].FechaInicio,
+	    		fechaFin: recordsets[0][0].FechaFin
+	    	};
+	    	response.json(resultado);	    	
+	    });  	    
+	});	
+});
+//Actualizar Periodo
+app.put('/actualizarPeriodo/:ID', function (request, response) {
+	response.json(periodo.actualizar(request.params.ID,
+		request.body.fechaInicio,
+		request.body.fechaFin)); 	    
+});	

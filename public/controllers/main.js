@@ -11,10 +11,6 @@ myApp.config(function ($routeProvider) {
 			templateUrl : '../pages/periodo.html',
 			controller 	: 'periodoController'
 		})
-		.when('/grupo', {
-			templateUrl : '../pages/grupo.html',
-			controller 	: 'grupoController'
-		})
 		.when('/profesor', {
 			templateUrl : '../pages/profesor.html',
 			controller 	: 'profesorController'
@@ -22,6 +18,10 @@ myApp.config(function ($routeProvider) {
 		.when('/estudiante', {
 			templateUrl : '../pages/estudiante.html',
 			controller  : 'estudianteController'
+		})
+		.when('/grupo', {
+			templateUrl : '../pages/grupo.html',
+			controller 	: 'grupoController'
 		})
 		.otherwise({
 			redirectTo : '/'
@@ -37,6 +37,7 @@ myApp.controller('mainController', ['$scope', '$http', function ($scope, $http) 
 
 }]);
 
+var ID;
 myApp.controller('periodoController', ['$scope', '$http', function ($scope, $http) {
 	var refresh = function () {
 		$http.get('/periodos').success(function (response) {	//"Importar" desde el server
@@ -46,7 +47,6 @@ myApp.controller('periodoController', ['$scope', '$http', function ($scope, $htt
 		
 	};
 	refresh();
-
 	$scope.insertar = function () {	
 		$http.post('/insertarPeriodo', $scope.periodo).success(function (response) {
 			refresh();
@@ -54,7 +54,6 @@ myApp.controller('periodoController', ['$scope', '$http', function ($scope, $htt
 			document.location.reload();				
 		});
 	};	
-
 	$scope.invertirEstado = function (fechaInicio) {
 		$http.post('/invertirEstadoPeriodo/' + fechaInicio).success(function (response) {
 			refresh();
@@ -62,13 +61,23 @@ myApp.controller('periodoController', ['$scope', '$http', function ($scope, $htt
 			document.location.reload();					
 		});
 	};
+	$scope.editar = function (fechaInicio) {
+		$http.get('/editarPeriodo/' + fechaInicio).success(function (response) {
+			ID = response.ID;
+			$scope.periodo = response;
+		});
+	}
+	$scope.actualizar = function () {
+		$http.put('/actualizarPeriodo/' + ID, $scope.periodo).success(function (response) {
+			refresh();
+			alert("Ejecución efectiva!");
+			document.location.reload();	
+		});		
+	}	
 }]);
-
 myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http) {
 	$scope.message = 'Grupo grupo grupo';
 }]);
-
-var ID;
 myApp.controller('profesorController', ['$scope', '$http', function ($scope, $http) {	
 	var refresh = function () {
 		$http.get('/profesores').success(function (response) {	//"Importar" desde el server
@@ -78,7 +87,6 @@ myApp.controller('profesorController', ['$scope', '$http', function ($scope, $ht
 		
 	};
 	refresh();
-
 	$scope.insertar = function () {	
 		$http.post('/insertarProfesor', $scope.profesor).success(function (response) {
 			refresh();
@@ -86,7 +94,6 @@ myApp.controller('profesorController', ['$scope', '$http', function ($scope, $ht
 			document.location.reload();	
 		});
 	};
-
 	$scope.eliminar = function (usuario) {
 		$http.delete('/eliminarProfesor/' + usuario).success(function (response) {
 			refresh();
@@ -94,14 +101,12 @@ myApp.controller('profesorController', ['$scope', '$http', function ($scope, $ht
 			document.location.reload();	
 		});
 	};
-
 	$scope.editar = function (usuario) {
 		$http.get('/editarProfesor/' + usuario).success(function (response) {
 			ID = response.ID;
 			$scope.profesor = response;
 		});
 	}
-
 	$scope.actualizar = function () {
 		$http.put('/actualizarProfesor/' + ID, $scope.profesor).success(function (response) {
 			refresh();
@@ -110,7 +115,6 @@ myApp.controller('profesorController', ['$scope', '$http', function ($scope, $ht
 		});		
 	}
 }]);
-
 myApp.controller('estudianteController', ['$scope', '$http', function ($scope, $http) {
 	var refresh = function () {
 		$http.get('/estudiantes').success(function (response) {	//"Importar" desde el server
@@ -119,7 +123,6 @@ myApp.controller('estudianteController', ['$scope', '$http', function ($scope, $
 		});	
 	};
 	refresh();
-
 	$scope.insertar = function () {	
 		$http.post('/insertarEstudiante', $scope.estudiante).success(function (response) {
 			refresh();
@@ -127,7 +130,6 @@ myApp.controller('estudianteController', ['$scope', '$http', function ($scope, $
 			document.location.reload();	
 		});	
 	};
-
 	$scope.eliminar = function (carne) {	
 		$http.delete('/eliminarEstudiante/' + carne).success(function (response) {
 			refresh();
@@ -135,14 +137,12 @@ myApp.controller('estudianteController', ['$scope', '$http', function ($scope, $
 			document.location.reload();	
 		});	
 	};
-
 	$scope.editar = function (carne) {
 		$http.get('/editarEstudiante/' + carne).success(function (response) {
 			ID = response.ID;
 			$scope.estudiante = response;
 		});
 	}
-
 	$scope.actualizar = function () {
 		$http.put('/actualizarEstudiante/' + ID, $scope.estudiante).success(function (response) {
 			refresh();

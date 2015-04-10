@@ -14,6 +14,7 @@ var profesores;
 function estructuraProfesor() {
 	var profesor = 
 	{		
+		ID: 0,
 		usuario: "",
 		nombre: ""
 	};
@@ -27,6 +28,7 @@ function profesores() {
 	        profesores = new Array(recordsets[0].length);
 	        for (var i = 0; i < recordsets[0].length; i++) {
 	        	profesor = new estructuraProfesor();
+	        	profesor.ID = recordsets[0][i].ID;
 	        	profesor.usuario = recordsets[0][i].Usuario;
 	        	profesor.nombre = recordsets[0][i].Nombre;
 	        	profesores[i] = profesor;
