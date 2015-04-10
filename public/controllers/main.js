@@ -19,6 +19,10 @@ myApp.config(function ($routeProvider) {
 			templateUrl : '../pages/estudiante.html',
 			controller  : 'estudianteController'
 		})
+		.when('/curso', {
+			templateUrl : '../pages/curso.html',
+			controller  : 'cursoController'
+		})
 		.when('/grupo', {
 			templateUrl : '../pages/grupo.html',
 			controller 	: 'grupoController'
@@ -31,6 +35,7 @@ myApp.config(function ($routeProvider) {
 			redirectTo : '/'
 		});
 });
+var ID;
 //Controladores
 myApp.controller('mainController', ['$scope', '$http', function ($scope, $http) {
 	$scope.message = '- Bienvenid@ al servicio web -';
@@ -40,8 +45,6 @@ myApp.controller('mainController', ['$scope', '$http', function ($scope, $http) 
 	}
 
 }]);
-
-var ID;
 myApp.controller('periodoController', ['$scope', '$http', function ($scope, $http) {
 	var refresh = function () {
 		$http.get('/periodos').success(function (response) {	//"Importar" desde el server
@@ -80,10 +83,60 @@ myApp.controller('periodoController', ['$scope', '$http', function ($scope, $htt
 	}	
 }]);
 myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http) {
-	$scope.message = 'Grupo grupo grupo';
+	var refresh = function () {
+		$http.get('/grupos').success(function (response) {	//"Importar" desde el server
+			$scope.grupos = response;						//"Exportar" desde el controlador
+			$scope.grupo = "";
+		});	
+		
+	};
+	refresh();
+	$scope.insertar = function () {	
+		$http.post('/insertarGrupo', $scope.grupo).success(function (response) {
+			refresh();
+			alert("Ejecución efectiva!");
+			document.location.reload();	
+		});
+	};		
 }]);
 myApp.controller('miembroController', ['$scope', '$http', function ($scope, $http) {
-	$scope.message = 'Miembro!';
+}]);
+myApp.controller('cursoController', ['$scope', '$http', function ($scope, $http) {
+	var refresh = function () {
+		$http.get('/cursos').success(function (response) {	//"Importar" desde el server
+			$scope.cursos = response;						//"Exportar" desde el controlador
+			$scope.curso = "";
+		});	
+		
+	};
+	refresh();
+	$scope.insertar = function () {	
+		$http.post('/insertarCurso', $scope.curso).success(function (response) {
+			refresh();
+			alert("Ejecución efectiva!");
+			document.location.reload();	
+		});
+	};	
+	$scope.eliminar = function (codigo) {
+		$http.delete('/eliminarCurso/' + codigo).success(function (response) {
+			refresh();
+			alert("Ejecución efectiva!");
+			document.location.reload();	
+		});
+	};
+	$scope.editar = function (codigo) {
+		$http.get('/editarCurso/' + codigo).success(function (response) {
+			ID = response.ID;
+			$scope.curso = response;
+		});
+	}
+	$scope.actualizar = function () {
+		$http.put('/actualizarCurso/' + ID, $scope.curso).success(function (response) {
+			refresh();
+			alert("Ejecución efectiva!");
+			document.location.reload();	
+		});		
+	}	
 }]);
 myApp.controller('profesorController', ['$scope', '$http', function ($scope, $http) {	
 	var refresh = function () {

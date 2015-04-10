@@ -1,0 +1,27 @@
+<div class="well">
+	<table class="table">
+		<thead>
+			<tr>
+				<th><strong><h2>Curso</h2></strong></th>
+				<th><input class="form-control" ng-model="curso.codigo" placeholder="Código"></th>
+				<th><input class="form-control" ng-model="curso.nombre" placeholder="Nombre"></th>
+				<th><button class="btn btn-primary" ng-click="insertar()">Insertar</button></th>		
+				<th><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></th>	
+			</tr>			
+			<tr>
+				<th>ID</th>
+				<th>Código</th>
+				<th>Nombre</th>
+			</tr>
+		</thead>
+		<tbody>	
+			<tr ng-repeat="curso in cursos">  <!-- Recorrer el array -->
+				<td>{{curso.ID}}</td>
+				<td>{{curso.codigo}}</td>
+				<td>{{curso.nombre}}</td>
+				<td><button class="btn btn-danger" ng-click="eliminar(curso.codigo)">Eliminar</button></td>
+				<td><button class="btn btn-warning" ng-click="editar(curso.codigo)">Editar</button></td>
+			</tr>
+		</tbody>		
+	</table>
+</div>

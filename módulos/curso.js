@@ -8,43 +8,42 @@ var configuration =
 	server: 'localhost',
 	database: 'RegistroNotas'
 }
-var profesor;
-var profesores;
-function estructuraProfesor() {
-	var profesor = 
+var curso;
+var cursos;
+function estructuraCurso() {
+	var curso = 
 	{		
 		ID: 0,
-		usuario: "",
+		codigo: "",
 		nombre: ""
 	};
-	return profesor;
+	return curso;
 }
-function profesores() {
+function cursos() {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
-	    request.execute('dbo.RNSP_Profesores', function (err, recordsets, returnValue) {    	
-	        profesores = new Array(recordsets[0].length);
+	    request.execute('dbo.RNSP_Cursos', function (err, recordsets, returnValue) {    	
+	        cursos = new Array(recordsets[0].length);
 	        for (var i = 0; i < recordsets[0].length; i++) {
-	        	profesor = new estructuraProfesor();
-	        	profesor.ID = recordsets[0][i].ID;
-	        	profesor.usuario = recordsets[0][i].Usuario;
-	        	profesor.nombre = recordsets[0][i].Nombre;
-	        	profesores[i] = profesor;
+	        	curso = new estructuraCurso();
+	        	curso.ID = recordsets[0][i].ID;
+	        	curso.codigo = recordsets[0][i].Codigo;
+	        	curso.nombre = recordsets[0][i].Nombre;
+	        	cursos[i] = curso;
 	        };
 	    });   
 	});
-	return profesores;
+	return cursos;
 }
-function insertar(usuario, clave, nombre) {
+function insertar(codigo, nombre) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
-	    request.input('Usuario', mssql.VarChar(50), usuario);
-	    request.input('Clave', mssql.VarChar(50), clave);
+	    request.input('Codigo', mssql.VarChar(50), codigo);
 	    request.input('Nombre', mssql.VarChar(50), nombre);
 	    //Ejecución del Store Procedure
-	    request.execute('dbo.RNSP_InsertarProfesor', function (err, recordsets, returnValue) { 	    	
-			console.log("Ejecución efectiva del SP (INSERTAR PROFESOR)");
+	    request.execute('dbo.RNSP_InsertarCurso', function (err, recordsets, returnValue) { 	    	
+			console.log("Ejecución efectiva del SP (INSERTAR CURSO)");
 			var respuesta = {
 				resultado: returnValue
 			};			
@@ -52,14 +51,14 @@ function insertar(usuario, clave, nombre) {
 	    });  	    
 	});
 }
-function eliminar(usuario) {
+function eliminar(codigo) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetro
-	    request.input('Usuario', mssql.VarChar(50), usuario);
+	    request.input('Codigo', mssql.VarChar(50), codigo);
 	    //Ejecución del Store Procedure
-	    request.execute('dbo.RNSP_EliminarProfesor', function (err, recordsets, returnValue) {	    	
-			console.log("Ejecución efectiva del SP (ELIMINAR PROFESOR)"); 
+	    request.execute('dbo.RNSP_EliminarCurso', function (err, recordsets, returnValue) {	    	
+			console.log("Ejecución efectiva del SP (ELIMINAR CURSO)"); 
 			var respuesta = {
 				resultado: returnValue
 			};			
@@ -67,17 +66,16 @@ function eliminar(usuario) {
 	    });  	    
 	});
 }
-function actualizar(ID, usuario, clave, nombre) {
+function actualizar(ID, codigo, nombre) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
 	    request.input('ID', mssql.Int, ID);	    
-	    request.input('Usuario', mssql.VarChar(50), usuario);
-	    request.input('Clave', mssql.VarChar(50), clave);
+	    request.input('Codigo', mssql.VarChar(50), codigo);
 	    request.input('Nombre', mssql.VarChar(50), nombre);
 	    //Ejecución del Store Procedure
-	    request.execute('dbo.RNSP_ActualizarProfesor', function (err, recordsets, returnValue) { 
-			console.log("Ejecución efectiva del SP (ACTUALIZAR PROFESOR)");
+	    request.execute('dbo.RNSP_ActualizarCurso', function (err, recordsets, returnValue) { 
+			console.log("Ejecución efectiva del SP (ACTUALIZAR CURSO)");
 			var respuesta = {
 				resultado: returnValue
 			};
@@ -85,7 +83,7 @@ function actualizar(ID, usuario, clave, nombre) {
 	    }); 
 	}); 
 }
-module.exports.profesores = profesores;
+module.exports.cursos = cursos;
 module.exports.insertar = insertar;
 module.exports.eliminar = eliminar;
 module.exports.actualizar = actualizar;

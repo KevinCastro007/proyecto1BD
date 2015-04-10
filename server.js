@@ -165,3 +165,57 @@ app.put('/actualizarPeriodo/:ID', function (request, response) {
 		request.body.fechaInicio,
 		request.body.fechaFin)); 	    
 });	
+
+//  ------------------------------------ Curso --------------------------------------------
+var curso = require('./módulos/curso.js')
+//Cursos
+app.get('/cursos', function (request, response) {
+	response.json(curso.cursos());
+});
+//Insertar Curso
+app.post('/insertarCurso', function (request, response) {
+	response.json(curso.insertar(request.body.codigo, request.body.nombre));
+});
+//Eliminar Curso
+app.delete('/eliminarCurso/:codigo', function (request, response) {
+	response.json(curso.eliminar(request.params.codigo));	
+});
+//Editar Curso
+app.get('/editarCurso/:codigo', function (request, response) {
+	var codigo = request.params.codigo;
+	var connection = new mssql.Connection(configuration, function (err) {
+	    var request = new mssql.Request(connection);
+	    //Parámetros
+	    request.input('Codigo', mssql.VarChar(50), codigo);
+	    //Ejecución del Store Procedure
+	    request.execute('dbo.RNSP_Curso', function (err, recordsets, returnValue) { 
+	    	var resultado = {
+	    		ID: recordsets[0][0].ID,
+	    		codigo: recordsets[0][0].Codigo,
+	    		nombre: recordsets[0][0].Nombre
+	    	};
+	    	response.json(resultado);	    	
+	    });  	    
+	});	
+});
+//Actualizar Curso
+app.put('/actualizarCurso/:ID', function (request, response) {
+	response.json(curso.actualizar(request.params.ID,
+		request.body.codigo,
+		request.body.nombre)); 	    
+});
+
+//  ------------------------------------ Grupo --------------------------------------------
+var grupo = require('./módulos/grupo.js')
+//Grupos
+app.get('/grupos', function (request, response) {
+	response.json(grupo.grupos());
+});
+//Insertar Grupo
+app.post('/insertarGrupo', function (request, response) {
+	response.json(grupo.insertar(request.body.periodoID,
+		request.body.profesorID,
+		request.body.cursoID,   
+		request.body.codigo, 
+		request.body.cupo));
+});
