@@ -1,6 +1,14 @@
 <div class="well">
 	<table class="table"> <!-- "table" y bootstrap hace la magia -->	
-		<thead>
+		<thead>			
+			<tr>
+				<th><strong><h2>Estudiante</h2></strong></th>
+				<th><input class="form-control" ng-model="estudiante.carne" placeholder="Carne"></th>
+				<th><input class="form-control" ng-model="estudiante.nombre" placeholder="Nombre"></th>
+				<th><input class="form-control" ng-model="estudiante.email" placeholder="Email"></th>	
+				<th><button class="btn btn-primary" ng-click="insertar()">Insertar</button></th>		
+				<th><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></th>	
+			</tr>
 			<tr>
 				<th>ID</th>
 				<th>Carne</th>
@@ -10,15 +18,7 @@
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
-				<td>&nbsp;</td>
-				<td><input class="form-control" ng-model="estudiante.carne"></td>
-				<td><input class="form-control" ng-model="estudiante.nombre"></td>
-				<td><input class="form-control" ng-model="estudiante.email"></td>	
-				<td><button class="btn btn-primary" ng-click="insertar()">Insertar</button></td>			
-				<td><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></td>	
-			</tr>	
+		<tbody>	
 			<tr ng-repeat="estudiante in estudiantes">  <!-- Recorrer el array -->
 				<td>{{estudiante.ID}}</td>
 				<td>{{estudiante.carne}}</td>

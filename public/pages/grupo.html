@@ -1,4 +1,33 @@
-<div class="jumbotron text-center">
-	<h1>GRUPO</h1>
-	<p>{{ message }}</p>
+<div class="well">
+	<table class="table">
+		<thead>
+			<tr>
+				<th><strong><h2>Grupo</h2></strong></th>
+				<th><input class="form-control" ng-model="grupo.periodoID" placeholder="ID: Periodo"></th>
+				<th><input class="form-control" ng-model="grupo.profesorID" placeholder="ID: Profesor"></th>
+				<th><input class="form-control" ng-model="grupo.codigo" placeholder="Código"></th>
+				<th><input class="form-control" ng-model="grupo.cupo" placeholder="Cupo"></th>		
+				<th><button class="btn btn-primary" ng-click="insertar()">Insertar</button></th>		
+				<th><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></th>	
+			</tr>			
+			<tr>
+				<th>ID</th>
+				<th>ID: Periodo</th>
+				<th>ID: Profesor</th>
+				<th>Código</th>
+				<th>Cupo</th>
+				<th>Acción</th>
+			</tr>
+		</thead>
+		<tbody>	
+			<tr ng-repeat="grupo in grupos">  <!-- Recorrer el array -->
+				<td>{{grupo.periodoID}}</td>
+				<td>{{grupo.profesorID}}</td>
+				<td>{{grupo.codigo}}</td>
+				<td>{{grupo.cupo}}</td>
+				<td><button class="btn btn-danger" ng-click="eliminar(grupo.codigo)">Eliminar</button></td>
+				<td><button class="btn btn-warning" ng-click="editar(grupo.codigo)">Editar</button></td>
+			</tr>
+		</tbody>		
+	</table>
 </div>

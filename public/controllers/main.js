@@ -23,6 +23,10 @@ myApp.config(function ($routeProvider) {
 			templateUrl : '../pages/grupo.html',
 			controller 	: 'grupoController'
 		})
+		.when('/miembro', {
+			templateUrl : '../pages/miembro.html',
+			controller 	: 'miembroController'
+		})
 		.otherwise({
 			redirectTo : '/'
 		});
@@ -77,6 +81,9 @@ myApp.controller('periodoController', ['$scope', '$http', function ($scope, $htt
 }]);
 myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http) {
 	$scope.message = 'Grupo grupo grupo';
+}]);
+myApp.controller('miembroController', ['$scope', '$http', function ($scope, $http) {
+	$scope.message = 'Miembro!';
 }]);
 myApp.controller('profesorController', ['$scope', '$http', function ($scope, $http) {	
 	var refresh = function () {

@@ -2,6 +2,14 @@
 	<table class="table"> <!-- "table" y bootstrap hace la magia -->	
 		<thead>
 			<tr>
+				<th><strong><h2>Profesor</h2></strong></th>
+				<th><input class="form-control" ng-model="profesor.usuario" placeholder="Usuario"></th>
+				<th><input type="password" class="form-control" ng-model="profesor.clave" placeholder="Clave"></th>
+				<th><input class="form-control" ng-model="profesor.nombre" placeholder="Nombre"></th>	
+				<th><button class="btn btn-primary" ng-click="insertar()">Insertar</button></th>		
+				<th><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></th>		
+			</tr>
+			<tr>
 				<th>ID</th>
 				<th>Usuario</th>
 				<th>Contraseña</th>
@@ -10,15 +18,7 @@
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
-				<td>&nbsp;</td>
-				<td><input class="form-control" ng-model="profesor.usuario"></td>
-				<td><input type="password" class="form-control" ng-model="profesor.clave"></td>
-				<td><input class="form-control" ng-model="profesor.nombre"></td>	
-				<td><button class="btn btn-primary" ng-click="insertar()">Insertar</button></td>		
-				<td><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></td>			
-			</tr>	
+		<tbody>	
 			<tr ng-repeat="profesor in profesores">  <!-- Recorrer el array -->
 				<td>{{profesor.ID}}</td>
 				<td>{{profesor.usuario}}</td>

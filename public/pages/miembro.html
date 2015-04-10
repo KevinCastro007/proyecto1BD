@@ -1,0 +1,30 @@
+<div class="well">
+	<table class="table">
+		<thead>
+			<tr>	
+				<th><strong><h2>Miembro</h2></strong></th>
+				<th>&nbsp;</th>
+				<th><input class="form-control" ng-model="miembro.grupoID" placeholder="ID: Grupo"></th>
+				<th><input class="form-control" ng-model="miembro.estudianteID" placeholder="ID: Estudiante"></th>	
+				<th><button class="btn btn-primary" ng-click="insertar()">Insertar</button></th>		
+				<th><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></th>	
+			</tr>	
+			<tr>
+				<th>Estado</th>
+				<th>Nota Acumulada</th>
+				<th>ID: Grupo</th>
+				<th>ID: Estudiante</th>
+				<th>Acción</th>
+			</tr>
+		</thead>
+		<tbody>	
+			<tr ng-repeat="miembro in miembros">  <!-- Recorrer el array -->
+				<td>{{miembro.grupoID}}</td>
+				<td>{{miembro.estudianteID}}</td>
+				<td><button class="btn btn-danger" ng-click="eliminar()">Eliminar</button></td>
+				<td><button class="btn btn-warning" ng-click="editar()">Invertir Estado</button></td>
+				<td><button class="btn btn-warning" ng-click="editar()">Editar</button></td>
+			</tr>
+		</tbody>		
+	</table>
+</div>

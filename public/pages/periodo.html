@@ -1,6 +1,14 @@
-<div class="well">
+<div class="well">	
 	<table class="table">
 		<thead>
+			<tr>
+				<th><strong><h2>Periodo</h2></strong></th>
+				<th>&nbsp;</th>
+				<th><input class="form-control" ng-model="periodo.fechaInicio" placeholder="Fecha de Inicio (aaaa-mm-dd)"></th>
+				<th><input class="form-control" ng-model="periodo.fechaFin" placeholder="Fecha de Fin (aaaa-mm-dd)"></th>
+				<th><button class="btn btn-primary" ng-click="insertar()">Insertar</button></th>
+				<th><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></th>
+			</tr>
 			<tr>
 				<th>ID</th>
 				<th>Estado</th>
@@ -12,14 +20,6 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td><input class="form-control" ng-model="periodo.fechaInicio" placeholder="aaaa-mm-dd"></td>
-				<td><input class="form-control" ng-model="periodo.fechaFin" placeholder="aaaa-mm-dd"></td>
-				<td><button class="btn btn-primary" ng-click="insertar()">Insertar</button></td>
-				<td><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></td>
-			</tr>
 			<tr ng-repeat="periodo in periodos">  <!-- Recorrer el array -->
 				<td>{{periodo.ID}}</td>
 				<td>{{periodo.estado}}</td>
