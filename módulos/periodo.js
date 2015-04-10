@@ -13,9 +13,11 @@ var periodo;
 var periodos;
 function estructuraPeriodo() {
 	var periodo = 
-	{		
+	{
+		ID: 0,
 		fechaInicio: "",
-		fechaFin: ""
+		fechaFin: "",
+		estado: ""
 	};
 	return periodo;
 }
@@ -28,8 +30,15 @@ function periodos() {
 	        periodos = new Array(recordsets[0].length);
 	        for (var i = 0; i < recordsets[0].length; i++) {
 	        	periodo = new estructuraPeriodo();
+	        	periodo.ID = recordsets[0][i].ID;
 	        	periodo.fechaInicio = recordsets[0][i].FechaInicio;
 	        	periodo.fechaFin = recordsets[0][i].FechaFin;
+	        	if (!recordsets[0][i].Estado) {
+	        		periodo.estado = "Activo";
+	        	}
+	        	else {
+	        		periodo.estado = "Anulado";
+	        	}
 	        	periodos[i] = periodo;
 	        };
 	    });   
@@ -37,12 +46,12 @@ function periodos() {
 	return periodos;
 }
 
-function insertarPeriodo(fechaInicio, fechaFin) {
+function insertar(fechaInicio, fechaFin) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
-	    request.input('FechaInicio', mssql.VarChar(32), fechaInicio);
-	    request.input('FechaFin', mssql.VarChar(32), fechaFin);
+	    request.input('FechaInicio', mssql.VarChar(50), fechaInicio);
+	    request.input('FechaFin', mssql.VarChar(50), fechaFin);
 	    //Ejecución del Store Procedure
 	    request.execute('dbo.RNSP_InsertarPeriodo', function (err, recordsets, returnValue) {
 	    	console.log("Ejecución efectiva del SP (INSERTAR PERIODO)");
@@ -54,5 +63,22 @@ function insertarPeriodo(fechaInicio, fechaFin) {
 	});
 }
 
+function invertirEstado(fechaInicio) {
+	var connection = new mssql.Connection(configuration, function (err) {
+	    var request = new mssql.Request(connection);
+	    //Parámetros
+	    request.input('FechaInicio', mssql.VarChar(50), fechaInicio);
+	    //Ejecución del Store Procedure
+	    request.execute('dbo.RNSP_InvertirEstadoPeriodo', function (err, recordsets, returnValue) {
+			console.log("Ejecución efectiva del SP (ANULAR PERIODO)");
+			var respuesta = {
+				resultado: returnValue
+			};
+	    	return respuesta;
+	    });  	    
+	});	
+}
+
 module.exports.periodos = periodos;
-module.exports.insertarPeriodo = insertarPeriodo;
+module.exports.insertar = insertar;
+module.exports.invertirEstado = invertirEstado;

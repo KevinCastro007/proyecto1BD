@@ -2,22 +2,32 @@
 	<table class="table">
 		<thead>
 			<tr>
+				<th>ID</th>
+				<th>Estado</th>
 				<th>Fecha de Inicio</th>
 				<th>Fecha de Fin</th>
 				<th>Acción</th>
+				<th>&nbsp;</th> 
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
 				<td><input class="form-control" ng-model="periodo.fechaInicio" placeholder="aaaa-mm-dd"></td>
 				<td><input class="form-control" ng-model="periodo.fechaFin" placeholder="aaaa-mm-dd"></td>
 				<td><button class="btn btn-primary" ng-click="insertar()">Insertar</button></td>
 				<td><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></td>
 			</tr>
 			<tr ng-repeat="periodo in periodos">  <!-- Recorrer el array -->
+				<td>{{periodo.ID}}</td>
+				<td>{{periodo.estado}}</td>
 				<td>{{periodo.fechaInicio}}</td>
 				<td>{{periodo.fechaFin}}</td>
+				<td><button class="btn btn-danger" ng-click="eliminar(periodo.fechaInicio)">Eliminar</button></td>
+				<td><button class="btn btn-warning" ng-click="invertirEstado(periodo.fechaInicio)">Invertir Estado</button></td>
+				<td><button class="btn btn-warning" ng-click="eliminar(profesor.fechaInicio)">Editar</button></td>
 			</tr>		
 		</tbody>		
 	</table>

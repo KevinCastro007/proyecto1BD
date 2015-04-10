@@ -22,25 +22,21 @@ var configuration =
 	database: 'RegistroNotas'
 }
 
-//  ----------------------- Estudiante --------------------------------------
-var estudiante = require('./estudiante.js');
+//  -------------------------------------- Estudiante --------------------------------------
+var estudiante = require('./módulos/estudiante.js');
 //Estudiantes
 app.get('/estudiantes', function (request, response) {
-	//console.log(estudiante.estudiantes());
 	response.json(estudiante.estudiantes());
 });
 //Insertar Estudiante
 app.post('/insertarEstudiante', function (request, response) {
-	console.log("Ejecución efectiva del SP (INSERTAR ESTUDIANTE)");
-	response.json(estudiante.insertarEstudiante(request.body.carne, request.body.nombre, request.body.email));
+	response.json(estudiante.insertar(request.body.carne, 
+		request.body.nombre, 
+		request.body.email));
 });
 //Eliminar Estudiante
 app.delete('/eliminarEstudiante/:carne', function (request, response) {
-	var respuesta = {
-		resultado: estudiante.eliminarEstudiante(request.params.carne)
-	};    	
-	console.log("Ejecución efectiva del SP (ELIMINAR ESTUDIANTE)");
-	response.json(respuesta);	
+	response.json(estudiante.eliminar(request.params.carne));	
 });
 //Editar Estudiante
 app.get('/editarEstudiante/:carne', function (request, response) {
@@ -48,7 +44,7 @@ app.get('/editarEstudiante/:carne', function (request, response) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
-	    request.input('Carne', mssql.VarChar(32), carne);
+	    request.input('Carne', mssql.VarChar(50), carne);
 	    //Ejecución del Store Procedure
 	    request.execute('dbo.RNSP_Estudiante', function (err, recordsets, returnValue) { 
 	    	var resultado = {
@@ -63,39 +59,27 @@ app.get('/editarEstudiante/:carne', function (request, response) {
 });
 //Actualizar Estudiante
 app.put('/actualizarEstudiante/:ID', function (request, response) {
-	var respuesta = {
-		resultado: estudiante.actualizarEstudiante(request.params.ID,
-			request.body.carne,
-			request.body.nombre,
-			request.body.email)
-	};	    	
-	console.log("Ejecución efectiva del SP (ACTUALIZAR ESTUDIANTE)");
-	response.json(respuesta);
+	response.json(estudiante.actualizar(request.params.ID, 
+		request.body.carne,
+		request.body.nombre,
+		request.body.email));
 });
 
-//  ----------------------- Profesor --------------------------------------
-var profesor = require('./profesor.js');
+//  -------------------------------- Profesor --------------------------------------
+var profesor = require('./módulos/profesor.js');
 //Profesores
 app.get('/profesores', function (request, response) {
 	response.json(profesor.profesores());
 });
 //Insertar Profesor
 app.post('/insertarProfesor', function (request, response) {
-	var respuesta = {
-		resultado: profesor.insertarProfesor(request.body.usuario,
-			request.body.clave,
-			request.body.nombre)
-	};
-	console.log("Ejecución efectiva del SP (INSERTAR PROFESOR)");
-	response.json(respuesta);	
+	response.json(profesor.insertar(request.body.usuario,
+		request.body.clave,
+		request.body.nombre));	
 });
 //Eliminar Profesor
 app.delete('/eliminarProfesor/:usuario', function (request, response) {
-	var respuesta = {
-		resultado: profesor.eliminarProfesor(request.params.usuario)
-	};	    	
-	console.log("Ejecución efectiva del SP (ELIMINAR PROFESOR)");
-	response.json(respuesta);	
+	response.json(profesor.eliminar(request.params.usuario));	
 });
 //Editar Profesor
 app.get('/editarProfesor/:usuario', function (request, response) {
@@ -103,7 +87,7 @@ app.get('/editarProfesor/:usuario', function (request, response) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
-	    request.input('Usuario', mssql.VarChar(32), usuario);
+	    request.input('Usuario', mssql.VarChar(50), usuario);
 	    //Ejecución del Store Procedure
 	    request.execute('dbo.RNSP_Profesor', function (err, recordsets, returnValue) { 
 	    	var resultado = {
@@ -118,14 +102,10 @@ app.get('/editarProfesor/:usuario', function (request, response) {
 });
 //Actualizar Profesor
 app.put('/actualizarProfesor/:ID', function (request, response) {
-	var respuesta = {
-		resultado: profesor.actualizarProfesor(request.params.ID,
-			request.body.usuario,
-			request.body.clave,
-			request.body.nombre)
-	};
-	console.log("Ejecución efectiva del SP (ACTUALIZAR PROFESOR)");
-	response.json(respuesta);	 	    
+	response.json(profesor.actualizar(request.params.ID,
+		request.body.usuario,
+		request.body.clave,
+		request.body.nombre)); 	    
 });	
 //Login Profesor
 app.post('/login', function (request, response) {
@@ -134,8 +114,8 @@ app.post('/login', function (request, response) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
-	    request.input('Usuario', mssql.VarChar(32), usuario);
-	    request.input('Clave', mssql.VarChar(32), clave);
+	    request.input('Usuario', mssql.VarChar(50), usuario);
+	    request.input('Clave', mssql.VarChar(50), clave);
 	    //Ejecución del Store Procedure
 	    request.execute('dbo.RNSP_IdentificarProfesor', function (err, recordsets, returnValue) { 
 	    	var respuesta = {
@@ -147,13 +127,17 @@ app.post('/login', function (request, response) {
 	});	
 });
 
-//  ----------------------- Periodo --------------------------------------
-var periodo = require('./periodo.js')
+//  ------------------------------------ Periodo --------------------------------------------
+var periodo = require('./módulos/periodo.js')
 //Periodos
 app.get('/periodos', function (request, response) {
 	response.json(periodo.periodos());
 });
 //Insertar Periodo
 app.post('/insertarPeriodo', function (request, response) {
-	response.json(periodo.insertarPeriodo(request.body.fechaInicio, request.body.fechaFin));
+	response.json(periodo.insertar(request.body.fechaInicio, request.body.fechaFin));
+});
+//Anular Periodo
+app.post('/invertirEstadoPeriodo/:fechaInicio', function (request, response) {
+	response.json(periodo.invertirEstado(request.params.fechaInicio));	
 });

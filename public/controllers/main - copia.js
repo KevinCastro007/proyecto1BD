@@ -51,17 +51,16 @@ myApp.controller('periodoController', ['$scope', '$http', function ($scope, $htt
 		$http.post('/insertarPeriodo', $scope.periodo).success(function (response) {
 			refresh();
 			alert("Ejecución efectiva!");
-			document.location.reload();				
+			document.location.reload();	
+			// if (response.resultado) {
+			// 	alert("Periodo insertado correctamente!");
+			// 	document.location.reload();	
+			// }	
+			// else {
+			// 	alert("No se ha podido insertar el Periodo!");
+			// }			
 		});
 	};	
-
-	$scope.invertirEstado = function (fechaInicio) {
-		$http.post('/invertirEstadoPeriodo/' + fechaInicio).success(function (response) {
-			refresh();
-			alert("Ejecución efectiva!");
-			document.location.reload();					
-		});
-	};
 }]);
 
 myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http) {
@@ -84,6 +83,13 @@ myApp.controller('profesorController', ['$scope', '$http', function ($scope, $ht
 			refresh();
 			alert("Ejecución efectiva!");
 			document.location.reload();	
+			// if (response.resultado) {
+			// 	alert("Profesor insertado correctamente!");
+			// 	document.location.reload();	
+			// }	
+			// else {
+			// 	alert("No se ha podido insertar el Profesor!");
+			// }
 		});
 	};
 
@@ -92,6 +98,13 @@ myApp.controller('profesorController', ['$scope', '$http', function ($scope, $ht
 			refresh();
 			alert("Ejecución efectiva!");
 			document.location.reload();	
+			// if (response.resultado) {
+			// 	alert("Profesor eliminado correctamente!");
+			// 	document.location.reload();	
+			// }	
+			// else {
+			// 	alert("No se ha podido eliminar el Profesor!");
+			// }
 		});
 	};
 
@@ -107,6 +120,13 @@ myApp.controller('profesorController', ['$scope', '$http', function ($scope, $ht
 			refresh();
 			alert("Ejecución efectiva!");
 			document.location.reload();	
+			// if (response.resultado) {
+			// 	alert("Profesor actualizado correctamente!");
+			// 	document.location.reload();	
+			// }	
+			// else {
+			// 	alert("No se ha podido actualizar el Profesor!");
+			// }
 		});		
 	}
 }]);
@@ -125,6 +145,13 @@ myApp.controller('estudianteController', ['$scope', '$http', function ($scope, $
 			refresh();
 			alert("Ejecución efectiva!");
 			document.location.reload();	
+			// if (response) {
+			// 	alert("Estudiante insertado correctamente!");
+			// 	document.location.reload();	
+			// }	
+			// else {
+			// 	alert("No se ha podido insertar el Estudiante!");
+			// }
 		});	
 	};
 
@@ -133,6 +160,13 @@ myApp.controller('estudianteController', ['$scope', '$http', function ($scope, $
 			refresh();
 			alert("Ejecución efectiva!");
 			document.location.reload();	
+			// if (response.resultado) {
+			// 	alert("Estudiante eliminado correctamente!");
+			// 	document.location.reload();	
+			// }	
+			// else {
+			// 	alert("No se ha podido eliminar el Estudiante!");
+			// }
 		});	
 	};
 
@@ -147,7 +181,14 @@ myApp.controller('estudianteController', ['$scope', '$http', function ($scope, $
 		$http.put('/actualizarEstudiante/' + ID, $scope.estudiante).success(function (response) {
 			refresh();
 			alert("Ejecución efectiva!");
-			document.location.reload();	
+			document.location.reload();			
+			// if (response.resultado) {
+			// 	alert("Estudiante actualizado correctamente!");
+			// 	document.location.reload();
+			// }	
+			// else {
+			// 	alert("No se ha podido actualizar el Estudiante!");
+			// }
 		});	
 	}
 }]);

@@ -36,48 +36,60 @@ function profesores() {
 	return profesores;
 }
 
-function insertarProfesor(usuario, clave, nombre) {
+function insertar(usuario, clave, nombre) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
-	    request.input('Usuario', mssql.VarChar(32), usuario);
-	    request.input('Clave', mssql.VarChar(32), clave);
-	    request.input('Nombre', mssql.VarChar(32), nombre);
+	    request.input('Usuario', mssql.VarChar(50), usuario);
+	    request.input('Clave', mssql.VarChar(50), clave);
+	    request.input('Nombre', mssql.VarChar(50), nombre);
 	    //Ejecución del Store Procedure
-	    request.execute('dbo.RNSP_InsertarProfesor', function (err, recordsets, returnValue) { 
-	    	return returnValue;
+	    request.execute('dbo.RNSP_InsertarProfesor', function (err, recordsets, returnValue) { 	    	
+			console.log("Ejecución efectiva del SP (INSERTAR PROFESOR)");
+			var respuesta = {
+				resultado: returnValue
+			};			
+	    	return respuesta;
 	    });  	    
 	});
 }
 
-function eliminarProfesor(usuario) {
+function eliminar(usuario) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetro
-	    request.input('Usuario', mssql.VarChar(32), usuario);
+	    request.input('Usuario', mssql.VarChar(50), usuario);
 	    //Ejecución del Store Procedure
-	    request.execute('dbo.RNSP_EliminarProfesor', function (err, recordsets, returnValue) { 
-	    	return returnValue;
+	    request.execute('dbo.RNSP_EliminarProfesor', function (err, recordsets, returnValue) {	    	
+			console.log("Ejecución efectiva del SP (ELIMINAR PROFESOR)"); 
+			var respuesta = {
+				resultado: returnValue
+			};			
+	    	return respuesta;
 	    });  	    
 	});
 }
 
-function actualizarProfesor(ID, usuario, clave, nombre) {
+function actualizar(ID, usuario, clave, nombre) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
 	    request.input('ID', mssql.Int, ID);	    
-	    request.input('Usuario', mssql.VarChar(32), usuario);
-	    request.input('Clave', mssql.VarChar(32), clave);
-	    request.input('Nombre', mssql.VarChar(32), nombre);
+	    request.input('Usuario', mssql.VarChar(50), usuario);
+	    request.input('Clave', mssql.VarChar(50), clave);
+	    request.input('Nombre', mssql.VarChar(50), nombre);
 	    //Ejecución del Store Procedure
 	    request.execute('dbo.RNSP_ActualizarProfesor', function (err, recordsets, returnValue) { 
-	    	return returnValue;
+			console.log("Ejecución efectiva del SP (ACTUALIZAR PROFESOR)");
+			var respuesta = {
+				resultado: returnValue
+			};
+	    	return respuesta;
 	    }); 
 	}); 
 }
 
 module.exports.profesores = profesores;
-module.exports.insertarProfesor = insertarProfesor;
-module.exports.eliminarProfesor = eliminarProfesor;
-module.exports.actualizarProfesor = actualizarProfesor;
+module.exports.insertar = insertar;
+module.exports.eliminar = eliminar;
+module.exports.actualizar = actualizar;

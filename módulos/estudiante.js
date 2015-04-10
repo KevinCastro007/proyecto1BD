@@ -38,51 +38,60 @@ function estudiantes() {
 	return estudiantes;	
 }
 
-function insertarEstudiante(carne, nombre, email) {	
+function insertar(carne, nombre, email) {	
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
-	    request.input('Carne', mssql.VarChar(32), carne);
-	    request.input('Nombre', mssql.VarChar(32), nombre);
-	    request.input('Email', mssql.VarChar(32), email);
+	    request.input('Carne', mssql.VarChar(50), carne);
+	    request.input('Nombre', mssql.VarChar(50), nombre);
+	    request.input('Email', mssql.VarChar(50), email);
 	    //Ejecución del Store Procedure
 	    request.execute('dbo.RNSP_InsertarEstudiante', function (err, recordsets, returnValue) {
-	    	var respuesta = {
+			console.log("Ejecución efectiva del SP (INSERTAR ESTUDIANTE)");
+			var respuesta = {
 				resultado: returnValue
-			};
+			};		    	
 	    	return respuesta;
 	    });  	    
 	});
 }
 
-function eliminarEstudiante(carne) {
+function eliminar(carne) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetro
-	    request.input('Carne', mssql.VarChar(32), carne);
+	    request.input('Carne', mssql.VarChar(50), carne);
 	    //Ejecución del Store Procedure
 	    request.execute('dbo.RNSP_EliminarEstudiante', function (err, recordsets, returnValue) { 
-	 	    return returnValue;
+			console.log("Ejecución efectiva del SP (ELIMINAR ESTUDIANTE)");
+			var respuesta = {
+				resultado: returnValue
+			};		    	
+	    	return respuesta;
 	    });  	    
 	});	
 }
 
-function actualizarEstudiante(ID, carne, nombre, email) {
+function actualizar(ID, carne, nombre, email) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
 	    request.input('ID', mssql.Int, ID);
-	    request.input('Carne', mssql.VarChar(32), carne);
-	    request.input('Nombre', mssql.VarChar(32), nombre);
-	    request.input('Email', mssql.VarChar(32), email);
+	    request.input('Carne', mssql.VarChar(50), carne);
+	    request.input('Nombre', mssql.VarChar(50), nombre);
+	    request.input('Email', mssql.VarChar(50), email);
 	    //Ejecución del Store Procedure
 	    request.execute('dbo.RNSP_ActualizarEstudiante', function (err, recordsets, returnValue) { 
-	    	return returnValue;
+			console.log("Ejecución efectiva del SP (ACTUALIZAR ESTUDIANTE)");
+			var respuesta = {
+				resultado: returnValue
+			};		    	
+	    	return respuesta;
 	    });  	    
 	});
 }
 
 module.exports.estudiantes = estudiantes;
-module.exports.insertarEstudiante = insertarEstudiante;
-module.exports.eliminarEstudiante = eliminarEstudiante;
-module.exports.actualizarEstudiante = actualizarEstudiante;
+module.exports.insertar = insertar;
+module.exports.eliminar = eliminar;
+module.exports.actualizar = actualizar;
