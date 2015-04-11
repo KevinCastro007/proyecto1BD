@@ -31,8 +31,8 @@ function grupos() {
 	        	grupo = new estructuraGrupo();
 	        	grupo.ID = recordsets[0][i].ID;
 	        	grupo.periodoID = recordsets[0][i].FK_PeriodoGrupo;
-	        	grupo.profesorID = recordsets[0][i].FK_ProfesorGrupo;
-	        	grupo.cursoID = recordsets[0][i].FK_CursoGrupo;
+	        	grupo.profesorID = recordsets[0][i].Profesor;
+	        	grupo.cursoID = recordsets[0][i].Curso;
 	        	grupo.codigo = recordsets[0][i].Codigo;
 	        	grupo.cupo = recordsets[0][i].Cupo;
 	        	grupos[i] = grupo;

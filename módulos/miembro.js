@@ -29,8 +29,8 @@ function miembros() {
 	        	miembro = new estructuraMiembro();
 	        	miembro.estado = recordsets[0][i].Estado;
 	        	miembro.notaAcumulada = recordsets[0][i].NotaAcumulada;
-	        	miembro.grupoID = recordsets[0][i].FK_GrupoMiembro;
-	        	miembro.estudianteID = recordsets[0][i].FK_EstudianteMiembro;
+	        	miembro.grupoID = recordsets[0][i].Grupo;
+	        	miembro.estudianteID = recordsets[0][i].Estudiante;
 	        	miembros[i] = miembro;
 	        };
 	    });   
