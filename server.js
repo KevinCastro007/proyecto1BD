@@ -138,8 +138,8 @@ app.post('/insertarPeriodo', function (request, response) {
 	response.json(periodo.insertar(request.body.fechaInicio, request.body.fechaFin));
 });
 //Anular Periodo
-app.post('/invertirEstadoPeriodo/:fechaInicio', function (request, response) {
-	response.json(periodo.invertirEstado(request.params.fechaInicio));	
+app.post('/anularPeriodo/:fechaInicio', function (request, response) {
+	response.json(periodo.anular(request.params.fechaInicio));	
 });
 //Editar Periodo
 app.get('/editarPeriodo/:fechaInicio', function (request, response) {
@@ -219,6 +219,36 @@ app.post('/insertarGrupo', function (request, response) {
 		request.body.codigo, 
 		request.body.cupo));
 });
+//Editar Grupo
+app.get('/editarGrupo/:codigo', function (request, response) {
+	var codigo = request.params.codigo;
+	var connection = new mssql.Connection(configuration, function (err) {
+	    var request = new mssql.Request(connection);
+	    //Parámetros
+	    request.input('Codigo', mssql.VarChar(50), codigo);
+	    //Ejecución del Store Procedure
+	    request.execute('dbo.RNSP_Grupo', function (err, recordsets, returnValue) { 
+	    	var resultado = {
+	    		ID: recordsets[0][0].ID,
+	    		periodoID: recordsets[0][0].FK_PeriodoGrupo,
+	    		profesorID: recordsets[0][0].FK_ProfesorGrupo,
+	    		cursoID: recordsets[0][0].FK_CursoGrupo,
+	    		codigo: recordsets[0][0].Codigo,
+	    		cupo: recordsets[0][0].Cupo
+	    	};
+	    	response.json(resultado);	    	
+	    });  	    
+	});	
+});
+//Actualizar Grupo
+app.put('/actualizarGrupo/:ID', function (request, response) {
+	response.json(grupo.actualizar(request.params.ID,
+		request.body.periodoID,
+		request.body.profesorID,
+		request.body.cursoID,
+		request.body.codigo,
+		request.body.cupo)); 	    
+});	
 
 //  ------------------------------------ Miembro --------------------------------------------
 var miembro = require('./módulos/miembro.js')
@@ -230,3 +260,11 @@ app.get('/miembros', function (request, response) {
 app.post('/insertarMiembro', function (request, response) {
 	response.json(miembro.insertar(request.body.grupoID, request.body.estudianteID));
 });
+//Retirar Miembro Justificadamente 
+app.put('/retirarMiembroJustificamente/:ID', function (request, response) {
+	response.json(miembro.retirarJustificamente(request.params.ID)); 	    
+});	
+//Retirar Miembro Injustificadamente 
+app.put('/retirarMiembroInjustificamente/:ID', function (request, response) {
+	response.json(miembro.retirarInjustificamente(request.params.ID)); 	    
+});	

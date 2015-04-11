@@ -12,7 +12,8 @@ var miembro;
 var miembros;
 function estructuraMiembro() {
 	var miembro = 
-	{		
+	{
+		ID: 0,		
 		estado: "",
 		notaAcumulada: 0,
 		grupoID: 0,
@@ -27,6 +28,7 @@ function miembros() {
 	        miembros = new Array(recordsets[0].length);
 	        for (var i = 0; i < recordsets[0].length; i++) {
 	        	miembro = new estructuraMiembro();
+	        	miembro.ID = recordsets[0][i].ID;
 	        	miembro.estado = recordsets[0][i].Estado;
 	        	miembro.notaAcumulada = recordsets[0][i].NotaAcumulada;
 	        	miembro.grupoID = recordsets[0][i].Grupo;
@@ -53,5 +55,37 @@ function insertar(grupoID, estudianteID) {
 	    });  	    
 	});
 }
+function retirarJustificamente(ID) {
+	var connection = new mssql.Connection(configuration, function (err) {
+	    var request = new mssql.Request(connection);
+	    //Parámetros
+	    request.input('ID', mssql.Int, ID);
+	    //Ejecución del Store Procedure
+	    request.execute('dbo.RNSP_RetirarMiembroJustificadamente', function (err, recordsets, returnValue) { 	    	
+			console.log("Ejecución efectiva del SP (RETIRAR MIEMBRO JUSTIFICADAMENTE)");
+			var respuesta = {
+				resultado: returnValue
+			};			
+	    	return respuesta;
+	    });  	    
+	});
+}
+function retirarInjustificamente(ID) {
+	var connection = new mssql.Connection(configuration, function (err) {
+	    var request = new mssql.Request(connection);
+	    //Parámetros
+	    request.input('ID', mssql.Int, ID);
+	    //Ejecución del Store Procedure
+	    request.execute('dbo.RNSP_RetirarMiembroInjustificadamente', function (err, recordsets, returnValue) { 	    	
+			console.log("Ejecución efectiva del SP (RETIRAR MIEMBRO INJUSTIFICADAMENTE)");
+			var respuesta = {
+				resultado: returnValue
+			};			
+	    	return respuesta;
+	    });  	    
+	});
+}
 module.exports.miembros = miembros;
 module.exports.insertar = insertar;
+module.exports.retirarJustificamente = retirarJustificamente;
+module.exports.retirarInjustificamente = retirarInjustificamente;

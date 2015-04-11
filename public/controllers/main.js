@@ -61,8 +61,8 @@ myApp.controller('periodoController', ['$scope', '$http', function ($scope, $htt
 			document.location.reload();				
 		});
 	};	
-	$scope.invertirEstado = function (fechaInicio) {
-		$http.post('/invertirEstadoPeriodo/' + fechaInicio).success(function (response) {
+	$scope.anular = function (fechaInicio) {
+		$http.post('/anularPeriodo/' + fechaInicio).success(function (response) {
 			refresh();
 			alert("Ejecución efectiva!");
 			document.location.reload();					
@@ -98,6 +98,19 @@ myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http)
 			document.location.reload();	
 		});
 	};		
+	$scope.editar = function (codigo) {
+		$http.get('/editarGrupo/' + codigo).success(function (response) {
+			ID = response.ID;
+			$scope.grupo = response;
+		});
+	}
+	$scope.actualizar = function () {
+		$http.put('/actualizarGrupo/' + ID, $scope.grupo).success(function (response) {
+			refresh();
+			alert("Ejecución efectiva!");
+			document.location.reload();	
+		});		
+	}	
 }]);
 myApp.controller('miembroController', ['$scope', '$http', function ($scope, $http) {
 	var refresh = function () {
@@ -115,6 +128,20 @@ myApp.controller('miembroController', ['$scope', '$http', function ($scope, $htt
 			document.location.reload();	
 		});
 	};	
+	$scope.retirarJustificamente = function (ID) {
+		$http.put('/retirarMiembroJustificamente/' + ID).success(function (response) {
+			refresh();
+			alert("Ejecución efectiva!");
+			document.location.reload();	
+		});		
+	}	
+	$scope.retirarInjustificamente = function (ID) {
+		$http.put('/retirarMiembroInjustificamente/' + ID).success(function (response) {
+			refresh();
+			alert("Ejecución efectiva!");
+			document.location.reload();	
+		});		
+	}	
 }]);
 myApp.controller('cursoController', ['$scope', '$http', function ($scope, $http) {
 	var refresh = function () {

@@ -60,5 +60,26 @@ function insertar(periodoID, profesorID, cursoID, codigo, cupo) {
 	    });  	    
 	});
 }
+function actualizar(ID, periodoID, profesorID, cursoID, codigo, cupo) {
+	var connection = new mssql.Connection(configuration, function (err) {
+	    var request = new mssql.Request(connection);
+	    //Parámetros
+	    request.input('ID', mssql.Int, ID);	    
+	    request.input('FK_Periodo', mssql.Int, periodoID);
+	    request.input('FK_Profesor', mssql.Int, profesorID);
+	    request.input('FK_Curso', mssql.Int, cursoID);
+	    request.input('Codigo', mssql.VarChar(50), codigo);
+	    request.input('Cupo', mssql.Int, cupo);
+	    //Ejecución del Store Procedure
+	    request.execute('dbo.RNSP_ActualizarGrupo', function (err, recordsets, returnValue) { 
+			console.log("Ejecución efectiva del SP (ACTUALIZAR GRUPO)");
+			var respuesta = {
+				resultado: returnValue
+			};
+	    	return respuesta;
+	    }); 
+	}); 
+}
 module.exports.grupos = grupos;
 module.exports.insertar = insertar;
+module.exports.actualizar = actualizar;

@@ -59,24 +59,6 @@ function insertar(fechaInicio, fechaFin) {
 	    });  	    
 	});
 }
-function actualizar(ID, carne, nombre, email) {
-	var connection = new mssql.Connection(configuration, function (err) {
-	    var request = new mssql.Request(connection);
-	    //Parámetros
-	    request.input('ID', mssql.Int, ID);
-	    request.input('Carne', mssql.VarChar(50), carne);
-	    request.input('Nombre', mssql.VarChar(50), nombre);
-	    request.input('Email', mssql.VarChar(50), email);
-	    //Ejecución del Store Procedure
-	    request.execute('dbo.RNSP_ActualizarEstudiante', function (err, recordsets, returnValue) { 
-			console.log("Ejecución efectiva del SP (ACTUALIZAR ESTUDIANTE)");
-			var respuesta = {
-				resultado: returnValue
-			};		    	
-	    	return respuesta;
-	    });  	    
-	});
-}
 function actualizar(ID, fechaInicio, fechaFin) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
@@ -94,14 +76,14 @@ function actualizar(ID, fechaInicio, fechaFin) {
 	    });  	    
 	});
 }
-function invertirEstado(fechaInicio) {
+function anular(fechaInicio) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
 	    request.input('FechaInicio', mssql.VarChar(50), fechaInicio);
 	    //Ejecución del Store Procedure
-	    request.execute('dbo.RNSP_InvertirEstadoPeriodo', function (err, recordsets, returnValue) {
-			console.log("Ejecución efectiva del SP (INVERTIR ESTADO - PERIODO)");
+	    request.execute('dbo.RNSP_AnularPeriodo', function (err, recordsets, returnValue) {
+			console.log("Ejecución efectiva del SP (ANULAR PERIODO)");
 			var respuesta = {
 				resultado: returnValue
 			};
@@ -112,4 +94,4 @@ function invertirEstado(fechaInicio) {
 module.exports.periodos = periodos;
 module.exports.insertar = insertar;
 module.exports.actualizar = actualizar;
-module.exports.invertirEstado = invertirEstado;
+module.exports.anular = anular;
