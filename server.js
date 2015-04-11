@@ -219,3 +219,14 @@ app.post('/insertarGrupo', function (request, response) {
 		request.body.codigo, 
 		request.body.cupo));
 });
+
+//  ------------------------------------ Miembro --------------------------------------------
+var miembro = require('./módulos/miembro.js')
+//Miembros
+app.get('/miembros', function (request, response) {
+	response.json(miembro.miembros());
+});
+//Insertar Miembro
+app.post('/insertarMiembro', function (request, response) {
+	response.json(miembro.insertar(request.body.grupoID, request.body.estudianteID));
+});

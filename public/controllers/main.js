@@ -100,6 +100,21 @@ myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http)
 	};		
 }]);
 myApp.controller('miembroController', ['$scope', '$http', function ($scope, $http) {
+	var refresh = function () {
+		$http.get('/miembros').success(function (response) {	//"Importar" desde el server
+			$scope.miembros = response;						//"Exportar" desde el controlador
+			$scope.miembro = "";
+		});	
+		
+	};
+	refresh();
+	$scope.insertar = function () {	
+		$http.post('/insertarMiembro', $scope.miembro).success(function (response) {
+			refresh();
+			alert("Ejecución efectiva!");
+			document.location.reload();	
+		});
+	};	
 }]);
 myApp.controller('cursoController', ['$scope', '$http', function ($scope, $http) {
 	var refresh = function () {

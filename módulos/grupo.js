@@ -45,9 +45,9 @@ function insertar(periodoID, profesorID, cursoID, codigo, cupo) {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);
 	    //Parámetros
-	    request.input('FK_Periodo', mssql.VarChar(50), periodoID);
-	    request.input('FK_Profesor', mssql.VarChar(50), profesorID);
-	    request.input('FK_Curso', mssql.VarChar(50), cursoID);
+	    request.input('FK_Periodo', mssql.Int, periodoID);
+	    request.input('FK_Profesor', mssql.Int, profesorID);
+	    request.input('FK_Curso', mssql.Int, cursoID);
 	    request.input('Codigo', mssql.VarChar(50), codigo);
 	    request.input('Cupo', mssql.Int, cupo);
 	    //Ejecución del Store Procedure

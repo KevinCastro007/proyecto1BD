@@ -19,11 +19,10 @@
 		</thead>
 		<tbody>	
 			<tr ng-repeat="miembro in miembros">  <!-- Recorrer el array -->
+				<td>{{miembro.estado}}</td>
+				<td>{{miembro.notaAcumulada}}</td>
 				<td>{{miembro.grupoID}}</td>
 				<td>{{miembro.estudianteID}}</td>
-				<td><button class="btn btn-danger" ng-click="eliminar()">Eliminar</button></td>
-				<td><button class="btn btn-warning" ng-click="editar()">Invertir Estado</button></td>
-				<td><button class="btn btn-warning" ng-click="editar()">Editar</button></td>
 			</tr>
 		</tbody>		
 	</table>
