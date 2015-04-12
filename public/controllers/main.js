@@ -92,6 +92,8 @@ myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http)
 	};
 	refresh();
 	$scope.insertar = function () {	
+		alert($scope.cbProfesor);
+		$scope.grupo.profesorID = 1;
 		$http.post('/insertarGrupo', $scope.grupo).success(function (response) {
 			refresh();
 			alert("Ejecución efectiva!");
