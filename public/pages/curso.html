@@ -9,7 +9,8 @@
 				<th><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></th>	
 			</tr>			
 			<tr>
-				<th>ID</th>
+				<th>&nbsp;</th>
+				<!--<th>ID</th>-->
 				<th>Código</th>
 				<th>Nombre</th>
 				<th>&nbsp;</th>
@@ -18,7 +19,8 @@
 		</thead>
 		<tbody>	
 			<tr ng-repeat="curso in cursos">  <!-- Recorrer el array -->
-				<td>{{curso.ID}}</td>
+				<th>&nbsp;</th>
+				<!--<td>{{curso.ID}}</td>-->
 				<td>{{curso.codigo}}</td>
 				<td>{{curso.nombre}}</td>
 				<td><button class="btn btn-danger" ng-click="eliminar(curso.codigo)">Eliminar</button></td>
