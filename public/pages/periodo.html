@@ -3,30 +3,31 @@
 		<thead>
 			<tr>
 				<th><strong><h2>Periodo</h2></strong></th>
-				<th>&nbsp;</th>
+				<!--<th>&nbsp;</th>-->
 				<th><input class="form-control" ng-model="periodo.fechaInicio" placeholder="Fecha de Inicio (aaaa-mm-dd)"></th>
 				<th><input class="form-control" ng-model="periodo.fechaFin" placeholder="Fecha de Fin (aaaa-mm-dd)"></th>
 				<th><button class="btn btn-primary" ng-click="insertar()">Insertar</button></th>
 				<th><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></th>
+				<th>&nbsp;</th>
 			</tr>
 			<tr>
 				<th>ID</th>
-				<th>Estado</th>
+				<!--<th>Estado</th>-->
 				<th>Fecha de Inicio</th>
 				<th>Fecha de Fin</th>
-				<th>Acción</th>
-				<th>&nbsp;</th> 
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="periodo in periodos">  <!-- Recorrer el array -->
 				<td>{{periodo.ID}}</td>
-				<td>{{periodo.estado}}</td>
+				<!--<td>{{periodo.estado}}</td>-->				
 				<td>{{periodo.fechaInicio}}</td>
 				<td>{{periodo.fechaFin}}</td>
 				<td><button class="btn btn-danger" ng-click="eliminar(periodo.fechaInicio)">Eliminar</button></td>
-				<td><button class="btn btn-warning" ng-click="anular(periodo.fechaInicio)">Anular</button></td>
+				<!--<td><button class="btn btn-warning" ng-click="anular(periodo.fechaInicio)">Anular</button></td>-->
 				<td><button class="btn btn-warning" ng-click="editar(periodo.fechaInicio)">Editar</button></td>
 			</tr>		
 		</tbody>		
