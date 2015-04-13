@@ -3,7 +3,7 @@ var myApp = angular.module('myApp', ['ngRoute']);
 // Configuración de las rutas
 myApp.config(function ($routeProvider) {
 	$routeProvider
-		.when('/module/:module', {
+		.when('/', {
 			templateUrl : '../pages/home.html',
 			controller 	: 'mainController'
 		})
@@ -53,18 +53,23 @@ myApp.controller('periodoController', ['$scope', '$http', function ($scope, $htt
 	refresh();
 	$scope.insertar = function () {	
 		$http.post('/insertarPeriodo', $scope.periodo).success(function (response) {
-			refresh();
-			alert("Ejecución efectiva!");
-			document.location.reload();				
+			if (response.resultado) {
+				refresh();
+				alert("Periodo insertado!");	
+				document.location.reload();
+			}
+			else {
+				alert("Imposible insertar Periodo!");					
+			}			
 		});
 	};	
-	$scope.anular = function (fechaInicio) {
+	/*$scope.anular = function (fechaInicio) {
 		$http.post('/anularPeriodo/' + fechaInicio).success(function (response) {
 			refresh();
 			alert("Ejecución efectiva!");
 			document.location.reload();					
 		});
-	};
+	};*/
 	$scope.editar = function (fechaInicio) {
 		$http.get('/editarPeriodo/' + fechaInicio).success(function (response) {
 			ID = response.ID;
@@ -73,9 +78,14 @@ myApp.controller('periodoController', ['$scope', '$http', function ($scope, $htt
 	}
 	$scope.actualizar = function () {
 		$http.put('/actualizarPeriodo/' + ID, $scope.periodo).success(function (response) {
-			refresh();
-			alert("Ejecución efectiva!");
-			document.location.reload();	
+			if (response.resultado) {
+				refresh();
+				alert("Periodo actualizado!");	
+				document.location.reload();
+			}
+			else {
+				alert("Imposible actualizar Periodo!");					
+			}
 		});		
 	}	
 }]);
@@ -99,9 +109,14 @@ myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http)
 		}		
 		else {
 			$http.post('/insertarGrupo', $scope.grupo).success(function (response) {
-				refresh();
-				alert("Ejecución efectiva!");
-				document.location.reload();	
+				if (response.resultado) {
+					refresh();
+					alert("Grupo insertado!");	
+					document.location.reload();
+				}
+				else {
+					alert("Imposible insertar Grupo!");					
+				}
 			});			
 		}
 	};		
@@ -113,9 +128,14 @@ myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http)
 	}
 	$scope.actualizar = function () {
 		$http.put('/actualizarGrupo/' + ID, $scope.grupo).success(function (response) {
-			refresh();
-			alert("Ejecución efectiva!");
-			document.location.reload();	
+			if (response.resultado) {
+				refresh();
+				alert("Grupo actualizado!");	
+				document.location.reload();
+			}
+			else {
+				alert("Imposible actualizar Grupo!");					
+			}
 		});		
 	}	
 	$http.get('/periodos').success(function (response) {
@@ -145,24 +165,39 @@ myApp.controller('miembroController', ['$scope', '$http', function ($scope, $htt
 		}		
 		else {
 			$http.post('/insertarMiembro', $scope.miembro).success(function (response) {
-				refresh();
-				alert("Ejecución efectiva!");
-				document.location.reload();	
+				if (response.resultado) {
+					refresh();
+					alert("Miembro insertado!");	
+					document.location.reload();
+				}
+				else {
+					alert("Imposible insertar Miembro!");					
+				}
 			});			
 		}
 	};	
 	$scope.retirarJustificamente = function (ID) {
 		$http.put('/retirarMiembroJustificamente/' + ID).success(function (response) {
-			refresh();
-			alert("Ejecución efectiva!");
-			document.location.reload();	
+			if (response.resultado) {
+				refresh();
+				alert("Miembro retirado Justificamente!");	
+				document.location.reload();
+			}
+			else {
+				alert("Imposible retirar justificamente Miembro!");					
+			}
 		});		
 	}	
 	$scope.retirarInjustificamente = function (ID) {
 		$http.put('/retirarMiembroInjustificamente/' + ID).success(function (response) {
-			refresh();
-			alert("Ejecución efectiva!");
-			document.location.reload();	
+			if (response.resultado) {
+				refresh();
+				alert("Miembro retirado Injustificamente!");	
+				document.location.reload();
+			}
+			else {
+				alert("Imposible retirar Injustificamente Miembro!");					
+			}
 		});		
 	}	
 	$http.get('/grupos').success(function (response) {
@@ -182,16 +217,26 @@ myApp.controller('cursoController', ['$scope', '$http', function ($scope, $http)
 	refresh();
 	$scope.insertar = function () {	
 		$http.post('/insertarCurso', $scope.curso).success(function (response) {
-			refresh();
-			alert("Ejecución efectiva!");
-			document.location.reload();	
+			if (response.resultado) {
+				refresh();
+				alert("Curso insertado!");	
+				document.location.reload();
+			}
+			else {
+				alert("Imposible insertar Curso!");					
+			}
 		});
 	};	
 	$scope.eliminar = function (codigo) {
 		$http.delete('/eliminarCurso/' + codigo).success(function (response) {
-			refresh();
-			alert("Ejecución efectiva!");
-			document.location.reload();	
+			if (response.resultado) {
+				refresh();
+				alert("Curso eliminado!");	
+				document.location.reload();
+			}
+			else {
+				alert("Imposible eliminar Curso!");					
+			}
 		});
 	};
 	$scope.editar = function (codigo) {
@@ -202,9 +247,14 @@ myApp.controller('cursoController', ['$scope', '$http', function ($scope, $http)
 	}
 	$scope.actualizar = function () {
 		$http.put('/actualizarCurso/' + ID, $scope.curso).success(function (response) {
-			refresh();
-			alert("Ejecución efectiva!");
-			document.location.reload();	
+			if (response.resultado) {
+				refresh();
+				alert("Curso actualizado!");	
+				document.location.reload();
+			}
+			else {
+				alert("Imposible actulizar Curso!");					
+			}
 		});		
 	}	
 }]);

@@ -34,8 +34,10 @@
 				<td>{{miembro.notaAcumulada}}</td>
 				<td>{{miembro.grupoID}}</td>
 				<td>{{miembro.estudianteID}}</td>
-				<td><button class="btn btn-warning" ng-click="retirarJustificamente(miembro.ID)">Justificado</button></td>
-				<td><button class="btn btn-warning" ng-click="retirarInjustificamente(miembro.ID)">Injustificado</button></td>
+				<td>
+					<button class="btn btn-warning" ng-click="retirarJustificamente(miembro.ID)">Justificado</button>
+					<button class="btn btn-warning" ng-click="retirarInjustificamente(miembro.ID)">Injustificado</button>
+				</td>
 			</tr>
 		</tbody>		
 	</table>

@@ -1,13 +1,3 @@
-//Importación del módulo para la conexión con MSSQL SERVER
-var mssql = require('mssql');
-//Configuración de la conexión con la Base de Datos
-var configuration = 
-{
-	user: 'sa',
-	password: '123',
-	server: 'localhost',
-	database: 'RegistroNotas'
-}
 var grupo;
 var grupos;
 function estructuraGrupo() {
@@ -22,6 +12,50 @@ function estructuraGrupo() {
 	};
 	return grupo;
 }
+module.exports = function (app, mssql, configuration) {
+	//Grupos
+	app.get('/grupos', function (request, response) {
+		response.json(grupo.grupos());
+	});
+	//Insertar Grupo
+	app.post('/insertarGrupo', function (request, response) {
+		response.json(grupo.insertar(request.body.periodo.ID,
+			request.body.profesor.ID,
+			request.body.curso.ID,   
+			request.body.codigo, 
+			request.body.cupo));
+	});
+	//Editar Grupo
+	app.get('/editarGrupo/:codigo', function (request, response) {
+		var codigo = request.params.codigo;
+		var connection = new mssql.Connection(configuration, function (err) {
+		    var request = new mssql.Request(connection);
+		    //Parámetros
+		    request.input('Codigo', mssql.VarChar(50), codigo);
+		    //Ejecución del Store Procedure
+		    request.execute('dbo.RNSP_Grupo', function (err, recordsets, returnValue) { 
+		    	var resultado = {
+		    		ID: recordsets[0][0].ID,
+		    		periodoID: recordsets[0][0].FK_PeriodoGrupo,
+		    		profesorID: recordsets[0][0].FK_ProfesorGrupo,
+		    		cursoID: recordsets[0][0].FK_CursoGrupo,
+		    		codigo: recordsets[0][0].Codigo,
+		    		cupo: recordsets[0][0].Cupo
+		    	};
+		    	response.json(resultado);	    	
+		    });  	    
+		});	
+	});
+	//Actualizar Grupo
+	app.put('/actualizarGrupo/:ID', function (request, response) {
+		response.json(grupo.actualizar(request.params.ID,
+			request.body.periodoID,
+			request.body.profesorID,
+			request.body.cursoID,
+			request.body.codigo,
+			request.body.cupo)); 	    
+	});	
+};
 function grupos() {
 	var connection = new mssql.Connection(configuration, function (err) {
 	    var request = new mssql.Request(connection);

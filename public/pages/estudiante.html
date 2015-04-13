@@ -6,8 +6,10 @@
 				<th><input class="form-control" ng-model="estudiante.carne" placeholder="Carne"></th>
 				<th><input class="form-control" ng-model="estudiante.nombre" placeholder="Nombre"></th>
 				<th><input class="form-control" ng-model="estudiante.email" placeholder="Email"></th>	
-				<th><button class="btn btn-primary" ng-click="insertar()">Insertar</button></th>		
-				<th><button class="btn btn-info" ng-click="actualizar()">Actualizar</button></th>	
+				<th>
+					<button class="btn btn-primary" ng-click="insertar()">Insertar</button>		
+					<button class="btn btn-info" ng-click="actualizar()">Actualizar</button>
+				</th>	
 			</tr>
 			<tr>
 				<!--<th>ID</th>-->
@@ -16,18 +18,19 @@
 				<th>Nombre</th>
 				<th>Email</th>
 				<th>&nbsp;</th>
-				<th>&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>	
 			<tr ng-repeat="estudiante in estudiantes">  <!-- Recorrer el array -->
 				<!--<td>{{estudiante.ID}}</td>-->
-				<th>&nbsp;</th>
+				<td>&nbsp;</td>
 				<td>{{estudiante.carne}}</td>
 				<td>{{estudiante.nombre}}</td>
 				<td>{{estudiante.email}}</td>
-				<td><button class="btn btn-danger" ng-click="eliminar(estudiante.carne)">Eliminar</button></td>
-				<td><button class="btn btn-warning" ng-click="editar(estudiante.carne)">Editar</button></td>
+				<td>
+					<button class="btn btn-danger" ng-click="eliminar(estudiante.carne)">Eliminar</button>
+					<button class="btn btn-warning" ng-click="editar(estudiante.carne)">Editar</button>
+				</td>
 			</tr>
 		</tbody>				
 	</table> 
