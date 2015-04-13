@@ -127,16 +127,27 @@ myApp.controller('grupoController', ['$scope', '$http', function ($scope, $http)
 		});
 	}
 	$scope.actualizar = function () {
-		$http.put('/actualizarGrupo/' + ID, $scope.grupo).success(function (response) {
-			if (response.resultado) {
-				refresh();
-				alert("Grupo actualizado!");	
-				document.location.reload();
-			}
-			else {
-				alert("Imposible actualizar Grupo!");					
-			}
-		});		
+		if (typeof($scope.grupo.periodo) === 'undefined') {
+			alert("Seleccione el Periodo!");
+		}
+		else if (typeof($scope.grupo.profesor) === 'undefined') {
+			alert("Seleccione el Profesor!");
+		}
+		else if (typeof($scope.grupo.curso) === 'undefined') {
+			alert("Seleccione el Curso!");
+		}		
+		else {
+			$http.put('/actualizarGrupo/' + ID, $scope.grupo).success(function (response) {
+				if (response.resultado) {
+					refresh();
+					alert("Grupo actualizado!");	
+					document.location.reload();
+				}
+				else {
+					alert("Imposible actualizar Grupo!");					
+				}
+			});			
+		}		
 	}	
 	$http.get('/periodos').success(function (response) {
 		$scope.periodos = response;	
