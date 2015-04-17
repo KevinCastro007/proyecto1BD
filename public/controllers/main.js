@@ -63,13 +63,6 @@ myApp.controller('periodoController', ['$scope', '$http', function ($scope, $htt
 			}			
 		});
 	};	
-	/*$scope.anular = function (fechaInicio) {
-		$http.post('/anularPeriodo/' + fechaInicio).success(function (response) {
-			refresh();
-			alert("Ejecución efectiva!");
-			document.location.reload();					
-		});
-	};*/
 	$scope.editar = function (fechaInicio) {
 		$http.get('/editarPeriodo/' + fechaInicio).success(function (response) {
 			ID = response.ID;

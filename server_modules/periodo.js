@@ -5,8 +5,7 @@ function estructuraPeriodo() {
 	{
 		ID: 0,
 		fechaInicio: "",
-		fechaFin: "",
-		//estado: ""
+		fechaFin: ""
 	};
 	return periodo;
 }
@@ -23,12 +22,6 @@ module.exports = function (app, mssql, configuration) {
 		        	periodo.ID = recordsets[0][i].ID;
 		        	periodo.fechaInicio = recordsets[0][i].FechaInicio;
 		        	periodo.fechaFin = recordsets[0][i].FechaFin;
-		        	/*if (!recordsets[0][i].Estado) {
-		        		periodo.estado = "No Anulado";
-		        	}
-		        	else {
-		        		periodo.estado = "Anulado";
-		        	}*/
 		        	periodos[i] = periodo;
 		        };
 		    });   
@@ -38,7 +31,7 @@ module.exports = function (app, mssql, configuration) {
 	//Insertar Periodo
 	app.post('/insertarPeriodo', function (request, response) {
 		var fechaInicio = request.body.fechaInicio;
-		var fechaFin = request.body.fechaInicio;
+		var fechaFin = request.body.fechaFin;
 		var connection = new mssql.Connection(configuration, function (err) {
 		    var request = new mssql.Request(connection);
 		    //Parámetros
@@ -54,23 +47,6 @@ module.exports = function (app, mssql, configuration) {
 		    });  	    
 		});		
 	});
-	//Anular Periodo
-	/*app.post('/anularPeriodo/:fechaInicio', function (request, response) {
-		var fechaInicio = request.params.fechaInicio
-		var connection = new mssql.Connection(configuration, function (err) {
-		    var request = new mssql.Request(connection);
-		    //Parámetros
-		    request.input('FechaInicio', mssql.VarChar(50), fechaInicio);
-		    //Ejecución del Store Procedure
-		    request.execute('dbo.RNSP_AnularPeriodo', function (err, recordsets, returnValue) {
-				console.log("Ejecución efectiva del SP (ANULAR PERIODO)");
-				var respuesta = {
-					resultado: returnValue
-				};
-		    	response.json(respuesta);
-		    });  	    
-		});			
-	});*/
 	//Editar Periodo
 	app.get('/editarPeriodo/:fechaInicio', function (request, response) {
 		var fechaInicio = request.params.fechaInicio;
