@@ -1,5 +1,5 @@
 <div class="well">
-	<table class="table"> <!-- "table" y bootstrap hace la magia -->	
+	<table class="table">
 		<thead>
 			<tr>
 				<th><strong><h2>Profesor</h2></strong></th>
@@ -13,7 +13,6 @@
 			</tr>
 			<tr>
 				<th>&nbsp;</th>
-				<!--<th>ID</th>-->
 				<th>Usuario</th>
 				<th>Contraseña</th>
 				<th>Nombre</th>
@@ -23,7 +22,6 @@
 		<tbody>	
 			<tr ng-repeat="profesor in profesores">  <!-- Recorrer el array -->
 				<td>&nbsp;</td>
-				<!--<td>{{profesor.ID}}</td>-->
 				<td>{{profesor.usuario}}</td>
 				<td>*******************</td>
 				<td>{{profesor.nombre}}</td>

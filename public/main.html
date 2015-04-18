@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="es" ng-app='myApp'>
+<html lang="es" ng-app='myApp'>             <!-- Asignación del Módulo de AngularJS -->
     <head>
         <meta charset="utf-8">
         <link rel="shortcut icon" href="/ico/favicon.ico">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-        <!--<script type="text/javascript" src="/jquery/jquery-1.11.2.js"></script>-->
         <style>
             body {
                 padding-top: 70px;
@@ -13,7 +12,7 @@
         </style>
         <title>Mantenimiento de Tablas2</title>
     </head>
-    <body ng-controller='mainController' style="background-color: gray">
+    <body ng-controller='mainController' style="background-color: gray">            <!-- Asignación del Controlador -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -52,7 +51,7 @@
                 </div>
             </div>
         </nav>       
-        <div id="main">            
+        <div id="main">         <!-- Donde se cargan las vistas correspondientes -->      
             <div ng-view></div>
         </div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.7/angular.min.js"></script>

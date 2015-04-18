@@ -6,20 +6,17 @@
 				<th>
 					<select name="" id="" ng-model="grupo.periodo" ng-options="periodo.ID for periodo in periodos" style="height: 33px">
 						<option value="">- Seleccione el Periodo -</option>
-					</select>					
-					<!--<input class="form-control" ng-model="grupo.periodoID" placeholder="ID: Periodo">-->					
+					</select>										
 				</th>
 				<th>								
 					<select name="" id="" ng-model="grupo.profesor" ng-options="profesor.nombre for profesor in profesores" style="height: 33px">
 						<option value="">- Seleccione el Profesor -</option>
 					</select>					
-					<!--<input class="form-control" ng-model="grupo.profesorID" placeholder="ID: Profesor">-->
 				</th>
 				<th>
 					<select name="" id="" ng-model="grupo.curso" ng-options="curso.nombre for curso in cursos" style="height: 33px">
 						<option value="">- Seleccione el Curso -</option>
 					</select>					
-					<!--<input class="form-control" ng-model="grupo.cursoID" placeholder="ID: Curso">-->
 				</th>
 				<th><input class="form-control" ng-model="grupo.codigo" placeholder="Código"></th>
 				<th><input class="form-control" ng-model="grupo.cupo" placeholder="Cupo"></th>		
@@ -28,7 +25,6 @@
 			</tr>			
 			<tr>
 				<th>&nbsp;</th>
-				<!--<th>ID</th>-->
 				<th>Periodo</th>
 				<th>Profesor</th>
 				<th>Curso</th>
@@ -41,13 +37,11 @@
 		<tbody>	
 			<tr ng-repeat="grupo in grupos">  <!-- Recorrer el array -->
 				<td>&nbsp;</td>
-				<!--<td>{{grupo.ID}}</td>-->
 				<td>{{grupo.periodoID}}</td>
 				<td>{{grupo.profesorID}}</td>
 				<td>{{grupo.cursoID}}</td>
 				<td>{{grupo.codigo}}</td>
 				<td>{{grupo.cupo}}</td>
-				<!--<td><button class="btn btn-danger" ng-click="eliminar(grupo.codigo)">Eliminar</button></td>-->
 				<td><button class="btn btn-warning" ng-click="editar(grupo.codigo)">Editar</button></td>
 				<td>&nbsp;</td>
 			</tr>
